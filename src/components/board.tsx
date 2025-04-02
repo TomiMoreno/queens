@@ -1,7 +1,7 @@
-import React from 'react';
-import Cell from './cell';
-import { BoardState } from './queens-game';
-import { CellState } from './types';
+import React from "react";
+import Cell from "./cell";
+import { BoardState } from "./queens-game";
+import { CellState } from "./types";
 
 type BoardProps = {
   board: BoardState;
@@ -12,7 +12,14 @@ type BoardProps = {
   setDragMode: (mode: "left" | "right" | null) => void;
 };
 
-const Board: React.FC<BoardProps> = ({ board, regions, onLeftClick, onRightClick, dragMode, setDragMode }) => {
+const Board: React.FC<BoardProps> = ({
+  board,
+  regions,
+  onLeftClick,
+  onRightClick,
+  dragMode,
+  setDragMode,
+}) => {
   return (
     <div
       className="grid" // no gap between cells
@@ -40,6 +47,13 @@ const Board: React.FC<BoardProps> = ({ board, regions, onLeftClick, onRightClick
                 onLeftClick(i, j, true);
               } else if (dragMode === "right") {
                 onRightClick(i, j, true);
+              }
+            }}
+            onMouseLeave={() => {
+              if (dragMode === "left") {
+                onLeftClick(i, j, false);
+              } else if (dragMode === "right") {
+                onRightClick(i, j, false);
               }
             }}
           />
